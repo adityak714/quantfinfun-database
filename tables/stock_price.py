@@ -1,24 +1,25 @@
-from sqlalchemy import Column, DateTime, ARRAY, String, Float, Integer
-
-from tables import get_attributes, Base
+from sqlalchemy import DateTime, Float, Integer, String
+from sqlalchemy.orm import mapped_column, Mapped
+from tables import Base, get_attributes
+from datetime import datetime
 
 
 class StockPriceDataset(Base):
     __tablename__ = "stock_price_dataset"
-    
-    date = Column(DateTime, primary_key=True)
-    asset = Column(String, primary_key=True)
-    open = Column(Float)
-    high = Column(Float)
-    low = Column(Float)
-    close = Column(Float)
-    volume = Column(Integer)
-    dividends = Column(Float)
-    stock_split = Column(Float)
-    capital_gains = Column(Float)
-    
-    def __repr__(self) -> None:
+
+    date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)
+    asset: Mapped[str] = mapped_column(String, primary_key=True)
+    open: Mapped[float] = mapped_column(Float)
+    high: Mapped[float] = mapped_column(Float)
+    low: Mapped[float] = mapped_column(Float)
+    close: Mapped[float] = mapped_column(Float)
+    volume: Mapped[int] = mapped_column(Integer)
+    dividends: Mapped[float] = mapped_column(Float)
+    stock_split: Mapped[float] = mapped_column(Float)
+    capital_gains: Mapped[float] = mapped_column(Float)
+
+    def __repr__(self) -> str:
         return get_attributes(self)
-    
-    def __str__(self) -> None:
+
+    def __str__(self) -> str:
         return get_attributes(self)

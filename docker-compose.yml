@@ -1,0 +1,7 @@
+services:
+  qffun-static-test:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    image: qffun-postgres-dev
+    
