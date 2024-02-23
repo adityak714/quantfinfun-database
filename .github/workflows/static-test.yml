@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Unit Tests
+      - name: Static Tests
         run: |
-          make static-test-docker
+            make static-tests-docker
