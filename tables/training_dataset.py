@@ -1,8 +1,10 @@
-from typing import List
-from sqlalchemy import ARRAY, DateTime, String
-from sqlalchemy.orm import mapped_column, Mapped
-from tables import Base, get_attributes
 from datetime import datetime
+from typing import List
+
+from sqlalchemy import ARRAY, DateTime, String
+from sqlalchemy.orm import Mapped, mapped_column
+
+from tables import Base, get_attributes
 
 
 class TrainingDataset(Base):

@@ -1,3 +1,4 @@
 flake8
 pycodestyle
 mypy
+pandas-stubs

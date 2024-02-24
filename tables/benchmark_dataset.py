@@ -1,7 +1,9 @@
-from sqlalchemy import ARRAY, DateTime, String
 from datetime import datetime
 from typing import List
+
+from sqlalchemy import ARRAY, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
+
 from tables import Base, get_attributes
 
 
