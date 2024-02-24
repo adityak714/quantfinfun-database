@@ -33,6 +33,7 @@ def fill_database(tickers: List[str]):
         stock_price_history = downloader.download_stocks(ticker)
         asset = ticker
         try:
+            stock_history_objects = []
             for index, row in stock_price_history.iterrows():
                 entry_dict = {
                     'date': index,
@@ -46,7 +47,8 @@ def fill_database(tickers: List[str]):
                     'stock_split': float(row['Stock Splits'])
                 }
                 stock_price_entry = StockPriceDataset(**entry_dict)
-                add_entry_to_database(stock_price_entry)
+                stock_history_objects.append(stock_price_entry)
+            add_entry_to_database(stock_history_objects)
         except Exception as e:
             logger.error(f'{e}, {ticker}')
 

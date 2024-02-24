@@ -46,7 +46,7 @@ class StockDownloader:
         # Try downloading
         try:
             tickerObj = yf.Ticker(ticker)
-            tickerObjHist = tickerObj.history(period="6mo")
+            tickerObjHist = tickerObj.history(period="max")
             return tickerObjHist            
         
         # If failed then log it
