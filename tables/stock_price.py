@@ -16,7 +16,6 @@ class StockPriceDataset(Base):
     volume: Mapped[int] = mapped_column(Integer)
     dividends: Mapped[float] = mapped_column(Float)
     stock_split: Mapped[float] = mapped_column(Float)
-    capital_gains: Mapped[float] = mapped_column(Float)
 
     def __repr__(self) -> str:
         return get_attributes(self)
