@@ -4,5 +4,5 @@ static-tests:
 	mypy scripts tables
 
 static-tests-docker:
-	docker compose build qffun-static-test  
-	docker compose run --rm qffun-static-test make static-tests
+	docker compose build qffun-db-tests
+	docker compose run --rm qffun-db-tests make static-tests
