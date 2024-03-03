@@ -4,7 +4,7 @@
 # Get rid of Training Dataset and benchmark dataset tables
 
 from datetime import datetime
-from typing import List
+from typing import List, Tuple
 
 from sqlalchemy import ARRAY, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -17,7 +17,7 @@ class PortfolioOptimizationTrainingDataset(Base):
     __tablename__ = "portfolio_optimization_training_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)
-    assets: Mapped[List[str]] = mapped_column(
+    assets: Mapped[Tuple[str]] = mapped_column(
         ARRAY(String), primary_key=True
     )
 
@@ -32,7 +32,7 @@ class PortfolioOptimizationBenchmarkDataset(Base):
     __tablename__ = "portfolio_optimization_benchmark_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)
-    assets: Mapped[List[str]] = mapped_column(
+    assets: Mapped[Tuple[str]] = mapped_column(
         ARRAY(String), primary_key=True
     )
 

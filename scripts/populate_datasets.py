@@ -10,6 +10,8 @@ from tables.portfolio_optimization_dataset import \
     PortfolioOptimizationTrainingDataset
 from tables.portfolio_optimization_dataset import \
     PortfolioOptimizationFullDataset
+from tables.portfolio_optimization_dataset import \
+    PortfolioOptimizationBenchmarkDataset
 
 # Logger Configuration
 logFileFormatter = logging.Formatter(
@@ -100,7 +102,7 @@ def populate_portfolio_optimization_dataset():
             error_logger.error(f"Errored while adding entry. Error: {e}")
 
 
-def populate__portfolio_optimization_training_dataset():
+def populate_portfolio_optimization_training_dataset():
     engine = db.create_engine(os.getenv("DB_URL"))
 
     connection = engine.connect()
@@ -119,16 +121,49 @@ def populate__portfolio_optimization_training_dataset():
         training_dataset_entries = []
         for row in chunk:
             date = row[0]
-            for i in range(10):
-                training_dataset_entry_dict = {'date':date, 'assets':random.sample(row[1],20)}
-                training_dataset_entry = PortfolioOptimizationTrainingDataset(**training_dataset_entry_dict)
-                training_dataset_entries.append(training_dataset_entry)
-        
-        add_entry_to_database(training_dataset_entries)
-        x=input()
-                
+            if len(row[1])>=30:
+                for i in range(10):
+                    asset_list = tuple(random.sample(row[1],20))
+                    training_dataset_entry_dict = {'date':date, 'assets':asset_list}
+                    training_dataset_entry = PortfolioOptimizationTrainingDataset(**training_dataset_entry_dict)
+                    training_dataset_entries.append(training_dataset_entry)
+        try:
+            add_entry_to_database(training_dataset_entries)
+            console_logger.info("Added a chunk of 1000 dates successfully")
+        except Exception as e:
+            error_logger.error(f"Errored while populating the 1000 dates. Error:{e}")
+
+
+def populate_portfolio_optimization_benchmark_dataset():
+    engine = db.create_engine(os.getenv("DB_URL"))
+
+    connection = engine.connect()
+
+    metadata = db.MetaData()
     
+    portfolio_optimization_dataset = db.Table(
+        "portfolio_optimization_full_dataset", metadata, autoload_with=engine
+    )
     
+    query = db.select(portfolio_optimization_dataset)
+    
+    result_proxy = connection.execution_options(stream_results=True).execute(query)
+    
+    while chunk:=result_proxy.fetchmany(1000):
+        training_dataset_entries = []
+        for row in chunk:
+            date = row[0]
+            if len(row[1])>=30:
+                for i in range(2):
+                    asset_list = tuple(random.sample(row[1],20))
+                    training_dataset_entry_dict = {'date':date, 'assets':asset_list}
+                    training_dataset_entry = PortfolioOptimizationBenchmarkDataset(**training_dataset_entry_dict)
+                    training_dataset_entries.append(training_dataset_entry)
+        try:
+            add_entry_to_database(training_dataset_entries)
+            console_logger.info("Added a chunk of 1000 dates successfully")
+        except Exception as e:
+            error_logger.error(f"Errored while populating the 1000 dates. Error:{e}")
 
 if __name__ == "__main__":
-    populate__portfolio_optimization_training_dataset()
+    populate_portfolio_optimization_benchmark_dataset()
