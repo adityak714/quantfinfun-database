@@ -6,9 +6,7 @@ from tables import Base
 from tables.distribution_table import DistributionDataset  # noqa: F401
 from tables.portfolio_optimization_dataset import (  # noqa: F401
     PortfolioOptimizationBenchmarkDataset,
-    PortfolioOptimizationTrainingDataset,
-    PortfolioOptimizationFullDataset
-)
+    PortfolioOptimizationFullDataset, PortfolioOptimizationTrainingDataset)
 from tables.stock_price import StockPriceDataset  # noqa: F401
 
 
