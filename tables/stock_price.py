@@ -3,7 +3,8 @@ from datetime import datetime
 from sqlalchemy import DateTime, Float, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from tables import Base, get_attributes
+from tables import Base
+from utils import get_attributes
 
 
 class StockPriceDataset(Base):

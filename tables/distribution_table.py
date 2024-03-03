@@ -6,7 +6,8 @@ from sqlalchemy import ARRAY, DateTime, Float, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from tables import Base, get_attributes
+from tables import Base
+from utils import get_attributes
 
 
 class DistributionDataset(Base):

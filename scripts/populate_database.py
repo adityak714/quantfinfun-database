@@ -24,6 +24,7 @@ fileHandler = logging.FileHandler(filename="error.log")
 fileHandler.setFormatter(logFileFormatter)
 fileHandler.setLevel(level=logging.INFO)
 logger.addHandler(fileHandler)
+logger.addHandler(logging.StreamHandler())
 
 
 def get_SNP500() -> List[str]:
