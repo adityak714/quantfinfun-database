@@ -4,8 +4,10 @@ import logging
 import os
 
 import sqlalchemy as db
-
+import random
 from scripts import add_entry_to_database
+from tables.portfolio_optimization_dataset import \
+    PortfolioOptimizationTrainingDataset
 from tables.portfolio_optimization_dataset import \
     PortfolioOptimizationFullDataset
 
@@ -98,5 +100,35 @@ def populate_portfolio_optimization_dataset():
             error_logger.error(f"Errored while adding entry. Error: {e}")
 
 
+def populate__portfolio_optimization_training_dataset():
+    engine = db.create_engine(os.getenv("DB_URL"))
+
+    connection = engine.connect()
+
+    metadata = db.MetaData()
+    
+    portfolio_optimization_dataset = db.Table(
+        "portfolio_optimization_full_dataset", metadata, autoload_with=engine
+    )
+    
+    query = db.select(portfolio_optimization_dataset)
+    
+    result_proxy = connection.execution_options(stream_results=True).execute(query)
+    
+    while chunk:=result_proxy.fetchmany(1000):
+        training_dataset_entries = []
+        for row in chunk:
+            date = row[0]
+            for i in range(10):
+                training_dataset_entry_dict = {'date':date, 'assets':random.sample(row[1],20)}
+                training_dataset_entry = PortfolioOptimizationTrainingDataset(**training_dataset_entry_dict)
+                training_dataset_entries.append(training_dataset_entry)
+        
+        add_entry_to_database(training_dataset_entries)
+        x=input()
+                
+    
+    
+
 if __name__ == "__main__":
-    populate_portfolio_optimization_dataset()
+    populate__portfolio_optimization_training_dataset()
