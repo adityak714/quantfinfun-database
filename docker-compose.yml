@@ -1,4 +1,10 @@
 services:
+  qffun-db-tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    image: qffun-postgres-dev
+    
   database:
     image: postgres:latest
     ports:
