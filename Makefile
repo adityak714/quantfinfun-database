@@ -6,3 +6,7 @@ static-tests:
 static-tests-docker:
 	docker compose build qffun-db-tests
 	docker compose run --rm qffun-db-tests make static-tests
+
+setup-database:
+	docker compose up -d database
+	docker compose up -d adminer

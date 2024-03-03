@@ -5,3 +5,21 @@ services:
       dockerfile: Dockerfile.dev
     image: qffun-postgres-dev
     
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=devpassword
+      - POSTGRES_USER=devdocker
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
