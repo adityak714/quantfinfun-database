@@ -1,8 +1,8 @@
 """Definition of stock price dataset table"""
 
-__author__="Mohd Sadiq"
-__version__="v0.1"
-__module__="stock_price_dataset"
+__author__ = "Mohd Sadiq"
+__version__ = "v0.1"
+__module__ = "stock_price_dataset"
 
 from datetime import datetime
 
@@ -15,6 +15,7 @@ from utils import get_attributes
 
 class StockPriceDataset(Base):
     """Definition of stock_price_dataset table"""
+
     __tablename__ = "stock_price_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)

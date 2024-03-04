@@ -3,9 +3,9 @@
  Full Dataset, Training Dataset, Testing Dataset
 """
 
-__author__="Mohd Sadiq"
-__version__="v0.1"
-__module__="portfolio_optimization_dataset"
+__author__ = "Mohd Sadiq"
+__version__ = "v0.1"
+__module__ = "portfolio_optimization_dataset"
 
 from datetime import datetime
 from typing import List, Tuple
@@ -19,6 +19,7 @@ from utils import get_attributes
 
 class PortfolioOptimizationTrainingDataset(Base):
     """Defition of portfolio_optimization_training_dataset table"""
+
     __tablename__ = "portfolio_optimization_training_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)
@@ -35,6 +36,7 @@ class PortfolioOptimizationTrainingDataset(Base):
 
 class PortfolioOptimizationBenchmarkDataset(Base):
     """Defition of portfolio_optimization_benchmark_dataset table"""
+
     __tablename__ = "portfolio_optimization_benchmark_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)
@@ -51,6 +53,7 @@ class PortfolioOptimizationBenchmarkDataset(Base):
 
 class PortfolioOptimizationFullDataset(Base):
     """Defition of portfolio_optimization_full_dataset table"""
+
     __tablename__ = "portfolio_optimization_full_dataset"
 
     date: Mapped[datetime] = mapped_column(DateTime, primary_key=True)

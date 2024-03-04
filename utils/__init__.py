@@ -1,8 +1,8 @@
 """Utility Functions for the repository"""
 
-__author__="Mohd Sadiq"
-__module__="utils"
-__version__="v0.1"
+__author__ = "Mohd Sadiq"
+__module__ = "utils"
+__version__ = "v0.1"
 
 import logging
 from typing import Any
@@ -18,7 +18,10 @@ def get_attributes(obj: Any) -> str:
     attrs = sorted(
         (k, getattr(obj, k)) for k in obj.__mapper__.columns.keys()
     )
-    sattrs = ", ".join("{}={!r}".format(*x) for x in attrs)  # pylint: disable=consider-using-f-string
+    sattrs = ", ".join(
+        "{}={!r}".format(*x)  # pylint: disable=consider-using-f-string
+        for x in attrs
+    )
     return frmt.format(class_, sattrs)
 
 
