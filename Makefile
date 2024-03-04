@@ -1,4 +1,5 @@
 static-tests:
+	pylint scripts tables data_models utils
 	flake8 scripts tables data_models utils
 	pycodestyle scripts tables data_models utils 
 	mypy scripts tables data_models utils

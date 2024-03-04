@@ -1,3 +1,9 @@
+"""Table definition common for all the other tables"""
+
+__module__="tables.__init__"
+__author__="Mohd Sadiq"
+__version__="v0.1"
+
 from sqlalchemy.orm import DeclarativeBase
 
 from utils import get_attributes

@@ -1,27 +1,19 @@
-import logging
+"""
+This script is responsible for downloading the stock price
+information
+"""
+
+__module__ = "stock_downloader"
+__author__ = "Mohd Sadiq"
+__version__ = "v0.1"
 
 import pandas as pd
 import yfinance as yf  # type: ignore
 
+from utils import build_logger, get_attributes
+
 # Logger Configuration
-logger = logging.getLogger("test")
-logFileFormatter = logging.Formatter(
-    fmt=(
-        f"%(levelname)s "
-        f"%(asctime)s "
-        f"(%(relativeCreated)d) \t "
-        f"%(pathname)s; "
-        f"Module_Name: {__name__}; "
-        f"F%(funcName)s L%(lineno)s - "
-        f"%(message)s"
-    ),
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-fileHandler = logging.FileHandler(filename="error.log")
-fileHandler.setFormatter(logFileFormatter)
-fileHandler.setLevel(level=logging.INFO)
-logger.addHandler(fileHandler)
-logger.addHandler(logging.StreamHandler())
+error_logger, console_logger = build_logger(__module__)
 
 
 class StockDownloader:
@@ -53,13 +45,13 @@ class StockDownloader:
 
         # Try downloading
         try:
-            tickerObj = yf.Ticker(ticker)
-            tickerObjHist = tickerObj.history(period="max")
-            return tickerObjHist
+            ticker_obj = yf.Ticker(ticker)
+            ticker_obj_hist = ticker_obj.history(period="max")
+            return ticker_obj_hist
 
         # If failed then log it
-        except Exception as e:
-            logger.error(f"{e}, {ticker}")
+        except Exception as error:  # pylint: disable=broad-except
+            error_logger.error("%s, %s", error, ticker)
         df3 = pd.DataFrame(
             columns=[
                 "Date",
@@ -73,6 +65,12 @@ class StockDownloader:
             ]
         )
         return df3
+
+    def __str__(self) -> str:
+        return get_attributes(self)
+
+    def __repr__(self) -> str:
+        return get_attributes(self)
 
 
 if __name__ == "__main__":
