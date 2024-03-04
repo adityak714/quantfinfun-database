@@ -1,3 +1,9 @@
+"""Class defining the distribution table"""
+
+__author__ = "Mohd Sadiq"
+__version__ = "v0.1"
+__module__ = "distribution_table"
+
 import uuid
 from datetime import datetime
 from typing import List
@@ -11,6 +17,8 @@ from utils import get_attributes
 
 
 class DistributionDataset(Base):
+    """Definition of the distribution table"""
+
     __tablename__ = "distribution_table"
 
     unique_id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True)
